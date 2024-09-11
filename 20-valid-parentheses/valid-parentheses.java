@@ -19,7 +19,7 @@ class Solution {
                     return false;
                 }
             }else {
-                return false;
+                return false;// if stack is empty and there is an closing bracket
             }
         }
         if(stack.size() > 0){
