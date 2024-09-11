@@ -1,9 +1,6 @@
 class Solution {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
-        // if(s.length() == 1 || s.charAt(0) == '}' || s.charAt(0) == ']' || s.charAt(0) == ')' || s.length() % 2 == 1){
-        //     return false;
-        // }
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
             if(c == '{' || c == '(' || c == '['){
@@ -19,7 +16,7 @@ class Solution {
                     return false;
                 }
             }else {
-                return false;// if stack is empty and there is an closing bracket
+                return false;// if there is a closing bracket and the stack is empty
             }
         }
         if(stack.size() > 0){
