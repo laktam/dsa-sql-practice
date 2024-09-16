@@ -3,7 +3,6 @@ class Solution {
         if(s.length() != t.length()){
             return false;
         }
-        Set<Character> set = new HashSet<>();
         for(int i = 0; i < s.length(); i++){
             if(t.contains(Character.toString(s.charAt(i)))){
                 t = t.replaceFirst(Character.toString(s.charAt(i)), "");
