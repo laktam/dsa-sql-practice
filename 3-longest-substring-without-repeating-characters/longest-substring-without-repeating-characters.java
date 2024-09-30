@@ -8,7 +8,7 @@ class Solution {
             
             if(chars.contains(s.charAt(i))){
                 // move start until no repeating character
-                // move until chars don't contain the char then add it
+                // move until chars don't contain the duplicate char then add it
                 for(int j = start; start < end; j++){
                     if(!chars.contains(s.charAt(i))){
                         start = j;
