@@ -1,8 +1,8 @@
 # Write your MySQL query statement below
 select round(
-        (select count(*)
+        (select count(*) 
         from activity a1
-        join (
+        join ( -- subquery to get min date for each player id
             select a2.player_id, min(a2.event_date) as min_event_date
             from activity a2
             group by a2.player_id
