@@ -1,5 +1,6 @@
 class Solution {
     public int firstUniqChar(String s) {
+        if(s.length() == 1) return 0;
         Map<Character, Integer> charsMap = new LinkedHashMap<>();
         for(int c = 0; c < s.length(); c++){
             if(charsMap.containsKey(s.charAt(c))){
