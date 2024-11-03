@@ -8,6 +8,9 @@ class Solution {
                 charsMap.put(s.charAt(c), 1);
             }
         }
+        if(!charsMap.containsValue(1)){
+            return -1;
+        }
         for(Map.Entry<Character, Integer> entry : charsMap.entrySet()){
             if(entry.getValue().equals(1)){
                 return s.indexOf(entry.getKey().toString());
