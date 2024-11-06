@@ -2,7 +2,7 @@ class Solution {
 
     // in place
     public void rotate(int[] nums, int k) {
-        k = k % nums.length;
+        k = k % nums.length; // this return k if it is lees than length
         reverse(0, nums.length - 1, nums);
         reverse(0, k - 1, nums);
         reverse(k, nums.length - 1, nums);
