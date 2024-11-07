@@ -17,18 +17,13 @@ class Solution {
     private List<TreeNode> list = new ArrayList<>();
 
     public boolean isValidBST(TreeNode root) {
-        if(root == null) return true;
-        treeToList(root);
-        for(int i = 0; i < list.size() - 1; i++){
-            if(list.get(i).val >= list.get(i + 1).val) return false;
-        }
-        return true;
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    public void treeToList(TreeNode root){
-        if(root == null) return;
-        if(root.left != null) treeToList(root.left);
-        list.add(root);
-        if(root.right != null) treeToList(root.right);
+    private boolean validate(TreeNode root, long min, long max){
+        if(root == null) return true;
+        if(root.val >= max || root.val <= min) return false;
+        return validate(root.left, min, root.val) && validate(root.right, root.val, max);
     }
+    
 }
