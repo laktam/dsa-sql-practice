@@ -15,35 +15,14 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if(root == null) return true;
-        return isSymmetricLevel(root.left, root.right);
+        return isSymmetric(root, root);
     }
-
-    // call with 2
-    public boolean isSymmetricLevel(TreeNode... nodes){
-        int l = 0;
-        int r = nodes.length - 1;
-        Deque<TreeNode> deque = new LinkedList<>();
-        while(l < r){
-            if(nodes[l] == null && nodes[r] != null) return false;
-            if(nodes[r] == null && nodes[l] != null) return false;
-            if(nodes[r] == null && nodes[l] == null){
-                l++;
-                r--;
-                continue;
-            }
-            if(nodes[l].val != nodes[r].val) return false;
-            // add left elements children to the start
-            deque.addFirst(nodes[l].left);
-            deque.addFirst(nodes[l].right);
-            // add right element children to the end
-            deque.addLast(nodes[r].right);
-            deque.addLast(nodes[r].left);
-            l++;
-            r--;
-        }
-        if(deque.size() == 0) return true;
-        return isSymmetricLevel(deque.toArray(new TreeNode[0]));
-        // return true;
+    public boolean isSymmetric(TreeNode t1, TreeNode t2){
+        if(t1 == null && t2 == null) return true;
+        if(t1 == null || t2 == null) return false;
+        return (t1.val == t2.val
+            && isSymmetric(t1.left, t2.right)
+            && isSymmetric(t2.left, t1.right)
+        );
     }
 }
