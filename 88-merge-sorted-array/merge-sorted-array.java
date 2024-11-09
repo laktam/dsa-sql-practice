@@ -7,16 +7,11 @@ class Solution {
             }
             return;
         }
-        Queue<Integer> pqueue = new PriorityQueue<>();
-        for(int i = 0; i < m; i++){
-            pqueue.add(nums1[i]);
-        }
-        for(int i = 0; i < n; i++){
-            pqueue.add(nums2[i]);
-        }
-
-        for(int i = 0; !pqueue.isEmpty(); i++){
-            nums1[i] = pqueue.poll();
+        int i1 = m - 1, i2 = n - 1;
+        int current = n + m - 1;
+        while(i2 >= 0){
+            if(i1 >= 0 && nums1[i1] > nums2[i2]) nums1[current--] = nums1[i1--];
+            else nums1[current--] = nums2[i2--]; 
         }
     }
 }
