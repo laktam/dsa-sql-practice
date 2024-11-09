@@ -7,9 +7,16 @@ class Solution {
             }
             return;
         }
-        for(int i = m, j = 0; i < nums1.length; i++, j++){
-            nums1[i] = nums2[j];
+        Queue<Integer> pqueue = new PriorityQueue<>();
+        for(int i = 0; i < m; i++){
+            pqueue.add(nums1[i]);
         }
-        Arrays.sort(nums1);
+        for(int i = 0; i < n; i++){
+            pqueue.add(nums2[i]);
+        }
+
+        for(int i = 0; !pqueue.isEmpty(); i++){
+            nums1[i] = pqueue.poll();
+        }
     }
 }
