@@ -1,7 +1,12 @@
 class Solution {
     public String countAndSay(int n) {
         if(n == 1) return "1";
-        return rLE(countAndSay(n - 1));
+        String tmp = "1";
+        for(int i = 1; i < n; i++){
+            tmp = rLE(tmp);
+        }
+        return tmp;
+        // return rLE(countAndSay(n - 1));
     }
 
     private String rLE(String s){
