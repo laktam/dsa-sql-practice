@@ -12,38 +12,26 @@ class Solution {
     public ListNode oddEvenList(ListNode head) {
         if(head == null) return head;
         if(head.next == null) return head;
-        if(head.next.next == null) return head;
-        // get last element
-        ListNode last = head;
-        ListNode lastOdd = null;
+
+        ListNode current = head.next.next;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode firstEven = even;
         int i = 0;
-        while(last != null){
-            if(i % 2 == 0) lastOdd = last;
-            if(last.next == null) break;
-            last = last.next;
+        while(current != null){
+            if(i % 2 == 0){
+                odd.next = current;
+                odd = odd.next;
+            }else {
+                even.next = current;
+                even = even.next;
+            }
+            current = current.next;
             i++;
         }
-
-        Boolean plusOne = false;
-        if(lastOdd.next != null) plusOne = true;
-
-        System.out.println("last odd : " + lastOdd.val);
-        ListNode currentOdd = head;
-        while(currentOdd != null && currentOdd != lastOdd){
-            ListNode currentEven = currentOdd.next;
-            currentOdd.next = currentEven.next;
-            currentOdd = currentEven.next;
-            last.next = currentEven;
-            last = currentEven;
-            last.next = null;
-        }      
-
-        if(plusOne){
-            ListNode lastEven = lastOdd.next;
-            lastOdd.next = lastEven.next;
-            last.next = lastEven;
-            lastEven.next = null;
-        }
+        even.next = null;
+        odd.next = firstEven;
         return head;
+        
     }
 }
