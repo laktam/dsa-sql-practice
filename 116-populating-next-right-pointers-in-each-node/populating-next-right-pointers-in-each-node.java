@@ -27,8 +27,8 @@ class Solution {
         Queue<Node> queue = new LinkedList<>();
         queue.add(root);
         queue.add(null);
-        // add level
-        // change it pointers while adding the next level   
+        // add each level and add null at the end 
+        // next iteration change .next pointer and add next level
         while(!queue.isEmpty()){
             if(queue.peek() == null) break;
             int size = queue.size();
