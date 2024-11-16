@@ -1,35 +1,31 @@
 class Solution {
-    private Map<Character, String> map = new HashMap<>();
-    private List<String> combinations = new ArrayList<>();
-
+    private Map<Character, String> digitsMap;
+    private List<String> combinations;
     public List<String> letterCombinations(String digits) {
-        if(digits.length() == 0){
-            return combinations;
-        }
-        map.put('2', "abc");
-        map.put('3', "def");
-        map.put('4', "ghi");
-        map.put('5', "jkl");
-        map.put('6', "mno");
-        map.put('7', "pqrs");
-        map.put('8', "tuv");
-        map.put('9', "wxyz");
+        if(digits.length() == 0) return Collections.EMPTY_LIST;
+        digitsMap = new HashMap<>();
+        digitsMap.put('2', "abc");
+        digitsMap.put('3', "def");
+        digitsMap.put('4', "ghi");
+        digitsMap.put('5', "jkl");
+        digitsMap.put('6', "mno");
+        digitsMap.put('7', "pqrs");
+        digitsMap.put('8', "tuv");
+        digitsMap.put('9', "wxyz");
 
-        combinationsOff(0, "", digits);
+        combinations = new ArrayList<>();
+        combinations(digits, "", 0);
         return combinations;
     }
 
-    public void combinationsOff(int c, String combination, String digits){
-        if(combination.length() == digits.length()){
-            combinations.add(combination);
-            return;
-        }
-        if(c < digits.length()){
-            String letters = map.get(digits.charAt(c));
-            for(int i = 0; i < letters.length(); i++){
-                combinationsOff(c + 1, combination + letters.charAt(i), digits);
+    public void combinations(String digits, String prefix, int index){
+        String letters = digitsMap.get(digits.charAt(index));
+        for(char c : letters.toCharArray()){
+            if(index == digits.length() - 1){
+                combinations.add(prefix + c);
+            }else{
+                combinations(digits, prefix + c, index + 1);
             }
         }
-        
     }
 }
