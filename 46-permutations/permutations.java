@@ -1,13 +1,13 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         if(nums.length < 2) return new ArrayList(Arrays.asList(nums));
-        List<List<Integer>> permutations = new ArrayList<>();
+        Set<List<Integer>> permutations = new HashSet<>();
         permute(permutations, Arrays.stream(nums).boxed().collect(Collectors.toList()), 0);
-        return permutations;
+        return new ArrayList<List<Integer>>(permutations);
     }
 
-    private void permute(List<List<Integer>> permutations, List<Integer> permutation, int n){
-        if(!permutations.contains(permutation)) permutations.add(permutation);
+    private void permute(Set<List<Integer>> permutations, List<Integer> permutation, int n){
+        permutations.add(permutation);
         if(n == permutation.size()) return;
         for(int i = 0; i < permutation.size(); i++){
             List<Integer> newPermutation = new ArrayList<>(permutation);
