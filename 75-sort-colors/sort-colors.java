@@ -9,21 +9,20 @@ class Solution {
         for(int i = 1; i < 3; i++){
             count[i] = count[i] + count[i - 1];
         }
-        System.out.println(Arrays.toString(count));
         // sort
-        int out[] = new int[nums.length];
-        for(int i = nums.length - 1; i >= 0; i--){
-            int k = nums[i];
-            int index = count[k] - 1;
-            out[index] = k;
-            //swap
-            // if(i != index){
-            //     int tmp = nums[index];
-            //     nums[index] = nums[i];
-            //     nums[i] = tmp;
-            // }
-            count[k]--;
+        for(int i = count.length - 1; i >= 0; i--){
+            // i here is the key to be sorted (the color)
+            int index = count[i] - 1;
+            int stop = 0;
+            if(i - 1 >= 0){
+                stop = count[i - 1];
+            } 
+
+            while(index >= stop){
+                nums[index] = i;
+                index--;
+            }
         }
-        System.arraycopy(out, 0, nums, 0, nums.length);
+
     }
 }
