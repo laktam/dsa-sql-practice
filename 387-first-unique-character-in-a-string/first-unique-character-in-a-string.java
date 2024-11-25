@@ -1,22 +1,23 @@
 class Solution {
     public int firstUniqChar(String s) {
-        if(s.length() == 1) return 0;
-        Map<Character, Integer> charsMap = new LinkedHashMap<>();
-        for(int c = 0; c < s.length(); c++){
-            if(charsMap.containsKey(s.charAt(c))){
-                charsMap.put(s.charAt(c), charsMap.get(s.charAt(c)) + 1);
-            }else{
-                charsMap.put(s.charAt(c), 1);
-            }
+        Map<Character, Integer> map = new LinkedHashMap<>();
+
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        if(!charsMap.containsValue(1)){
-            return -1;
-        }
-        for(Map.Entry<Character, Integer> entry : charsMap.entrySet()){
-            if(entry.getValue().equals(1)){
-                return s.indexOf(entry.getKey().toString());
-            }
-        }
-        return -1;
+        int result[] = map.entrySet().stream()
+                .filter(e -> e.getValue() == 1)
+                .mapToInt(e -> s.indexOf(e.getKey()))
+                .toArray();
+        if(result.length < 1) return -1;
+        else return result[0];
+
+        // try{
+        //     char unique = set.iterator().next();
+        //     return s.indexOf(unique);
+        // }catch(Exception e){
+        //     return -1;
+        // }
     }
 }
