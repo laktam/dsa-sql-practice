@@ -17,18 +17,10 @@ class Solution {
     public int maxDepth(TreeNode root) {
         if(root == null) return 0;
         if(root.left == null && root.right == null) return 1;
-        
-        int l = 0;
-        int r = 0;
-        if(root.left != null){
-            l = 1 + maxDepth(root.left);
-        }
-        
-        
-        if(root.right != null){
-            r = 1 + maxDepth(root.right);
-        }
-        if(l > r) return l;
-        else return r;
+        int r = 1;
+        if(root.right != null) r += maxDepth(root.right);
+        int l = 1;
+        if(root.left != null) l += maxDepth(root.left);
+        return r > l ? r : l; 
     }
 }
