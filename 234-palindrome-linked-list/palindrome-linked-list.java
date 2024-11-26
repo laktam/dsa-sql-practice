@@ -10,17 +10,37 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        Stack<ListNode> stack = new Stack<>();
-        ListNode tmp = head;
-        while(head != null){
-            stack.push(head);
-            head = head.next;
+        if(head == null || head.next == null) return true;
+        ListNode l1 = head;
+        ListNode l2 = head;
+
+        ListNode p1 = head;
+        ListNode p2 = head;
+
+        while(p2 != null){
+            if(p2.next != null){
+                if(p2.next.next == null) break;
+                p1 = p1.next;
+                p2 = p2.next.next;
+            }else break;
+        }
+        System.out.println(p1.val);
+        p1 = p1.next;
+        l2 = p1;
+
+        // reverse second part
+        ListNode prev = null;
+        while(p1 != null){
+            ListNode next = p1.next;
+            p1.next = prev;
+            prev = p1;
+            p1 = next;
         }
 
-        int mid = stack.size() / 2;
-        for(int i = 0; i < mid; i++){
-            if(tmp.val != stack.pop().val) return false;
-            tmp = tmp.next;
+        while(prev != null){
+            if(l1.val != prev.val) return false;
+            prev = prev.next;
+            l1 = l1.next;
         }
         return true;
     }
