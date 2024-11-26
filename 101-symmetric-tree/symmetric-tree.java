@@ -17,12 +17,10 @@ class Solution {
     public boolean isSymmetric(TreeNode root) {
         return isSymmetric(root, root);
     }
-    public boolean isSymmetric(TreeNode t1, TreeNode t2){
-        if(t1 == null && t2 == null) return true;
-        if(t1 == null || t2 == null) return false;
-        return (t1.val == t2.val
-            && isSymmetric(t1.left, t2.right)
-            && isSymmetric(t2.left, t1.right)
-        );
+
+    public boolean isSymmetric(TreeNode lroot, TreeNode rroot){
+        if(lroot == null && rroot == null) return true;
+        else if (lroot == null || rroot == null) return false;
+        else return lroot.val == rroot.val && isSymmetric(lroot.left, rroot.right) && isSymmetric(lroot.right, rroot.left);
     }
 }
