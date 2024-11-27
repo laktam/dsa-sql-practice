@@ -2,19 +2,20 @@
       boolean isBadVersion(int version); */
 
 public class Solution extends VersionControl {
-
     public int firstBadVersion(int n) {
-        if(n == 1) return 1;
-        return firstBadVersion(1, n);
-    }
-    public int firstBadVersion(int l, int r){
-        if(l == r) return l;
+        if(!isBadVersion(n - 1)) return n;
+        int l = 1;
+        int r = n;
         int m = l + (r - l) / 2;
-        if(isBadVersion(m)){
-            if(m - 1 > 0 && !isBadVersion(m - 1)) return m;
-            else return firstBadVersion(l, m);
-        }else{
-            return firstBadVersion(m + 1, r);
+        while(l <= r){
+            m = l + (r - l) / 2;
+            if(isBadVersion(m)){
+                if(m - 1 > 0 && !isBadVersion(m - 1)) return m;
+                else r = m - 1;
+            }else{
+                l = m + 1;
+            }
         }
+        return m;
     }
 }
