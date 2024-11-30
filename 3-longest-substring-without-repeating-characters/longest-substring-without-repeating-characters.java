@@ -1,32 +1,19 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int start = 0;
-        int end = 0;
-        int maxLength = 0;
-        Set<Character> chars = new HashSet<>();
-        for(int i = 0; i < s.length(); i++){
-            
-            if(chars.contains(s.charAt(i))){
-                // move start until no repeating character
-                // move until chars don't contain the duplicate char then add it
-                for(int j = start; start < end; j++){
-                    if(!chars.contains(s.charAt(i))){
-                        start = j;
-                        break;
-                    }else{
-                       // if it still contains it remove an element and move forward
-                       chars.remove(s.charAt(j));
-                    }
-                }
-                chars.add(s.charAt(i));
+        if(s.length() == 0) return 0;
+        int longest = 1;
+        String substring = "" + s.charAt(0);
+        for(int i = 1; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(!substring.contains(c + "")){
+                substring += c;
             }else{
-                chars.add(s.charAt(i));
+                // index of c in substring
+                int index = substring.lastIndexOf(c);
+                substring = substring.substring(index + 1) + c;
             }
-            end++;
-            if(chars.size() > maxLength){
-                maxLength = chars.size();
-            }
+            longest = Math.max(substring.length(), longest);
         }
-        return maxLength;
+        return longest;
     }
 }
