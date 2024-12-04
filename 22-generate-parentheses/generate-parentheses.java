@@ -1,27 +1,22 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
-        // Constraints to Ensure Validity:
-        // add ( only if nmbr of ( is less than n.
-        // add ) only if nmbr of ) is less than added (
-        // add the entries if length is (n * 2)
-        if(n == 0) return Collections.EMPTY_LIST;
-        if(n == 1) return Collections.singletonList("()");
-        List<String> combinations = new ArrayList<>();
-        generateParenthesis("", 0, 0, n, combinations);
-        return combinations;
+        List<String> result = new ArrayList<>();
+        generate(result, "", 0, 0, n);
+        return result;
+
     }
 
-    public void generateParenthesis(String prefix,int openningP, int closingP, int n, List<String> combinations){
-        //valid parentheses
-        if(prefix.length() == (n * 2)){
-            combinations.add(prefix);
+    private void generate(List<String> result,String prefix, int openCount,int closeCount, int n){
+        if(prefix.length() == n * 2) {
+            result.add(prefix);
+            return;
         }
-        // try the two possibilities
-        if(openningP < n){
-            generateParenthesis(prefix + "(", openningP + 1, closingP, n, combinations);
+
+        if(openCount < n){
+            generate(result, prefix + "(", openCount + 1, closeCount, n);
         }
-        if(closingP < openningP){
-            generateParenthesis(prefix + ")", openningP, closingP + 1, n, combinations);
+        if(closeCount < openCount){
+            generate(result, prefix + ")", openCount, closeCount + 1, n);
         }
     }
 }
