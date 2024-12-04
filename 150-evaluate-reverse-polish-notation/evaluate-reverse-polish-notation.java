@@ -1,18 +1,28 @@
 class Solution {
     public int evalRPN(String[] tokens) {
-        Stack<String> stack = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
         for(int i = 0; i < tokens.length; i++){
             String current = tokens[i];
-            if(!isOperation(current)){
-                stack.push(current);
-            }else{
-                String s2 = stack.pop();
-                String s1 = stack.pop();
-                String op = current;
-                stack.push(String.valueOf(operation(s1, s2, op)));
-            }
+            switch (current) {
+                case "-":
+                    stack.push(-stack.pop() + stack.pop());
+                    break;
+                case "+":
+                    stack.push(stack.pop() + stack.pop());
+                    break;
+                case "/":
+                    int i2 = stack.pop();
+                    int i1 = stack.pop();
+                    stack.push(i1 / i2);
+                    break;
+                case "*":
+                    stack.push(stack.pop() * stack.pop());
+                    break;
+                default :
+                    stack.push(Integer.parseInt(current));
+            } 
         }
-        return Integer.parseInt(stack.pop());
+        return stack.pop();
     }
 
     public boolean isOperation(String s){
