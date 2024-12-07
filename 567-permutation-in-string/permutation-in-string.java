@@ -1,21 +1,15 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-
-        int l = 0;
-        int s1l = s1.length();
-        int s2l = s2.length();
-        char s1arr[] = s1.toCharArray();
-        Arrays.sort(s1arr);
-
-        for(int r = s1l - 1; r < s2l; r++){
-            char s2arr[] = s2.substring(l, r + 1).toCharArray();
-            Arrays.sort(s2arr);
-            
-            for(int i = 0; i < s1l; i++){
-                if(s2arr[i] != s1arr[i]) break;
-                if(i == s1l - 1) return true;
-            }
-            l++;
+        // int start = 0;
+        int s1Length = s1.length();
+        int s2Length = s2.length();
+        char arr1[] = s1.toCharArray();
+        Arrays.sort(arr1);
+        for(int end = s1Length - 1; end < s2Length; end++){
+            int start = end - s1Length + 1;
+            char arr2[] = s2.substring(start, end + 1).toCharArray();
+            Arrays.sort(arr2);
+            if(Arrays.equals(arr1, arr2)) return true;
         }
         return false;
     }
