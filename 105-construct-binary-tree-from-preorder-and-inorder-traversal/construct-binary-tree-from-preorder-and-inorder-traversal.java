@@ -16,27 +16,28 @@
 class Solution {
     private int n = 0;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        return tree(inorder, preorder, 0, inorder.length - 1);
+        return buildTree(preorder, inorder, 0, inorder.length - 1);
     }
-    private TreeNode tree(int[] inorder, int[] preorder, int start, int end){
+
+    private TreeNode buildTree(int preorder[], int inorder[], int start, int end){
+        // if(start == end) return new TreeNode(preorder[start]);
         if(n >= preorder.length) return null;
-        if(start == end) return new TreeNode(inorder[start]);
 
         TreeNode root = new TreeNode(preorder[n]);
         int rootIndex = 0;
         for(int i = start; i <= end; i++){
-            if(inorder[i] == preorder[n]){
+            if(inorder[i] == preorder[n]) {
                 rootIndex = i;
                 break;
             }
         }
         if(rootIndex > start){
             n++;
-            root.left = tree(inorder, preorder, start, rootIndex - 1);
+            root.left = buildTree(preorder, inorder, start, rootIndex - 1);
         }
         if(rootIndex < end){
             n++;
-            root.right = tree(inorder, preorder, rootIndex + 1, end);
+            root.right = buildTree(preorder, inorder, rootIndex + 1, end);
         }
         return root;
     }
