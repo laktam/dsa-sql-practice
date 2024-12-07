@@ -1,28 +1,25 @@
 class Solution {
     public boolean isValid(String s) {
+        if(s.length() % 2 != 0) return false;
         Stack<Character> stack = new Stack<>();
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
-            if(c == '{' || c == '(' || c == '['){
+            if(stack.isEmpty()){
                 stack.push(c);
-            } else  if((c == '}' || c == ')' || c == ']')&& !stack.isEmpty())         {
-                if(c == '}' && stack.peek().equals('{')){
-                    stack.pop();
-                }else if(c == ']' && stack.peek().equals('[')){
-                        stack.pop();
-                }else if(c == ')' && stack.peek().equals('(')){
-                        stack.pop();
-                }else {
-                    return false;
-                }
+            }
+            else if(isValidPair(stack.peek(), c)){
+                stack.pop();
             }else {
-                return false;// if there is a closing bracket and the stack is empty
+                stack.push(c);
             }
         }
-        if(stack.size() > 0){
-            return false;
-        }
-    return true;
+        return stack.size() == 0;
+    }
 
+    private boolean isValidPair(char o, char c){
+        if(o == '(' && c == ')') return true;
+        if(o == '[' && c == ']') return true;
+        if(o == '{' && c == '}') return true;
+        return false;
     }
 }
